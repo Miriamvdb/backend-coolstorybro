@@ -1,24 +1,34 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    await queryInterface.bulkInsert(
+      "spaces",
+      [
+        {
+          title: "Test Space",
+          description: "This space is to test either my seederfiles are OK",
+          backgroundColor: "#ffffff",
+          color: "#000000",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          userId: 1,
+        },
+        {
+          title: "Dummy Space",
+          description: "Dummies, aren't that candies?",
+          backgroundColor: "#ffffff",
+          color: "#000000",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          userId: 2,
+        },
+      ],
+      {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+    await queryInterface.bulkDelete("spaces", null, {});
+  },
 };
