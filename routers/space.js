@@ -11,5 +11,16 @@ router.get("/testest", (req, res) => {
   res.send("Testest..");
 });
 
+// GET all spaces `localhost:4000/`
+// http GET :4000/spaces/
+router.get("/", async (req, res) => {
+  try {
+    const allSpaces = await Space.findAll();
+    res.send(allSpaces);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
 // export the router
 module.exports = router;

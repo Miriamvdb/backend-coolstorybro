@@ -11,5 +11,16 @@ router.get("/test", (req, res) => {
   res.send("Test..");
 });
 
+// GET all users `localhost:4000/`
+// http GET :4000/users/
+router.get("/", async (req, res) => {
+  try {
+    const allUsers = await User.findAll();
+    res.send(allUsers);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
 // export the router
 module.exports = router;
