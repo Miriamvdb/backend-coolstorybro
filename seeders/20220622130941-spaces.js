@@ -8,8 +8,8 @@ module.exports = {
         {
           title: "Test Space",
           description: "This space is to test either my seederfiles are OK",
-          backgroundColor: "#ffffff",
-          color: "#000000",
+          backgroundColor: "#4e6648",
+          color: "#1d261a",
           createdAt: new Date(),
           updatedAt: new Date(),
           userId: 1,
@@ -17,8 +17,8 @@ module.exports = {
         {
           title: "Dummy Space",
           description: "Dummies, aren't that candies?",
-          backgroundColor: "#ffffff",
-          color: "#000000",
+          backgroundColor: "#edab9a",
+          color: "#852209",
           createdAt: new Date(),
           updatedAt: new Date(),
           userId: 2,

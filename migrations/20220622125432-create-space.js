@@ -14,12 +14,14 @@ module.exports = {
       },
       description: {
         type: Sequelize.TEXT,
+        defaultValue: "#ffffff",
       },
       backgroundColor: {
         type: Sequelize.STRING,
       },
       color: {
         type: Sequelize.STRING,
+        defaultValue: "#000000",
       },
       createdAt: {
         allowNull: false,
