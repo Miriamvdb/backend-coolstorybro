@@ -7,13 +7,11 @@ const Story = require("../models").story;
 // instantiate a router
 const router = new Router();
 
-// register a GET / route that makes a test
 // TEST: http :4000/spaces/testest
 router.get("/testest", (req, res) => {
   res.send("Testest..");
 });
 
-// GET all spaces `localhost:4000/`
 // http GET :4000/spaces/
 router.get("/", async (req, res) => {
   try {
@@ -24,7 +22,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET space by id `localhost:4000/`
 // http GET :4000/spaces/1
 router.get("/:id", async (req, res) => {
   try {

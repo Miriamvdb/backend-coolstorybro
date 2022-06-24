@@ -11,7 +11,7 @@ module.exports = {
             "This is a story about testing. I'm writing this so I can test if everything works well. But how does it end?",
           imageUrl:
             "https://cdn.pocket-lint.com/r/s/320x/assets/images/140427-apps-news-the-best-stupidest-and-most-famous-internet-memes-around-image8-6bluhsfxts.jpg?v1",
-          createdAt: new Date(),
+          createdAt: new Date("2022-06-23T13:42:26.396Z"),
           updatedAt: new Date(),
           spaceId: 1,
         },
