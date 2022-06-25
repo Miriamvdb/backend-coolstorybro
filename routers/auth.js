@@ -4,7 +4,7 @@ const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models/").user;
 const Space = require("../models/").space;
-const Story = require("../models").story;
+const Story = require("../models").story; // Feature 4
 const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
@@ -26,7 +26,7 @@ router.post("/login", async (req, res, next) => {
         message: "User with that email not found or password incorrect",
       });
     }
-
+    // Feature 4
     const userSpace = await Space.findOne({
       where: { userId: user.id },
       include: [Story],
@@ -36,7 +36,7 @@ router.post("/login", async (req, res, next) => {
     const token = toJWT({ userId: user.id });
     return res
       .status(200)
-      .send({ token, user: user.dataValues, space: userSpace });
+      .send({ token, user: user.dataValues, space: userSpace }); // Feature 4
   } catch (error) {
     console.log(error);
     return res.status(400).send({ message: "Something went wrong, sorry" });
@@ -58,7 +58,7 @@ router.post("/signup", async (req, res) => {
 
     delete newUser.dataValues["password"]; // don't send back the password hash
 
-    // Feature 3: When you sign up for a new account, a space should be created for you and... -->
+    // Feature 3: When you sign up for a new account, a space should be created for you and.. -->
     const newSpace = await Space.create({
       title: `${name}s Space`,
       description: null,
@@ -66,7 +66,7 @@ router.post("/signup", async (req, res) => {
       color: "#000000",
       userId: newUser.id,
     });
-
+    // Feature 4
     const fullSpace = await Space.findByPk(newSpace.id, {
       include: [Story],
     });
@@ -76,7 +76,7 @@ router.post("/signup", async (req, res) => {
     res.status(201).json({
       token,
       user: newUser.dataValues,
-      // --> add the space here
+      // Feature 3: --> ..add the space here
       space: fullSpace,
     });
   } catch (error) {
@@ -96,13 +96,13 @@ router.post("/signup", async (req, res) => {
 router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
   delete req.user.dataValues["password"];
-
+  // Feature 4
   const userSpace = await Space.findOne({
     where: { userId: req.user.id },
     include: [Story],
   });
 
-  res.status(200).send({ user: req.user.dataValues, space: userSpace });
+  res.status(200).send({ user: req.user.dataValues, space: userSpace }); // Feature 4
 });
 
 module.exports = router;
