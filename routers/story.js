@@ -21,22 +21,22 @@ router.get("/", async (req, res) => {
 });
 
 // http DELETE :4000/stories/1
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const storyToDelete = await Story.findByPk(id);
+// router.delete("/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const storyToDelete = await Story.findByPk(id);
 
-    if (!storyToDelete) {
-      console.log("Story not found!");
-    }
+//     if (!storyToDelete) {
+//       console.log("Story not found!");
+//     }
 
-    await storyToDelete.destroy();
+//     await storyToDelete.destroy();
 
-    return res.send("Story deleted");
-  } catch (e) {
-    console.log(e.message);
-  }
-});
+//     return res.send("Story deleted");
+//   } catch (e) {
+//     console.log(e.message);
+//   }
+// });
 
 // export the router
 module.exports = router;
