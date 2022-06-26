@@ -38,6 +38,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Feature 4: Delete story
 // http DELETE :4000/spaces/1/stories/2
 router.delete("/:spaceId/stories/:storyId", auth, async (req, res, next) => {
   console.log(auth);
@@ -46,12 +47,14 @@ router.delete("/:spaceId/stories/:storyId", auth, async (req, res, next) => {
     const { spaceId, storyId } = req.params;
     const story = await Story.findByPk(storyId, { include: [Space] });
     if (!story) {
-      return res.send(404).send("Story not found!");
+      return res.status(404).send({ message: "Story not found!" });
     }
 
     // To check if user is owner of the space
     if (story.space.userId !== req.user.id) {
-      return res.send(401).send("You're not authorized to delete this story");
+      return res
+        .status(401)
+        .send({ message: "You're not authorized to delete this story" });
     }
 
     await story.destroy();
@@ -60,6 +63,39 @@ router.delete("/:spaceId/stories/:storyId", auth, async (req, res, next) => {
   } catch (e) {
     next(e);
   }
+});
+
+// Feature 5: Post a new story with corresponding id
+// http POST :4000/spaces/2/stories name="Happy Cat" content="I think cats are sweet, but I'm so allergic for them. The symptoms: a running nose, itchy eyes, itchy skin and neezing aaaalll the time." imageUrl="https://previews.123rf.com/images/pitachok/pitachok1406/pitachok140600002/29506790-happy-cat.jpg"
+router.post("/:id/stories", auth, async (req, res) => {
+  const space = await Space.findByPk(req.params.id);
+  console.log(space);
+
+  if (space === null) {
+    return res.status(404).send({ message: "Space not found!" });
+  }
+
+  if (!space.userId === req.user.id) {
+    return res
+      .status(403)
+      .send({ message: "You're not authorized to post a story here!" });
+  }
+
+  const { name, content, imageUrl } = req.body;
+  if (!name) {
+    return res
+      .status(400)
+      .send({ message: "Story must have a name, add it please :)" });
+  }
+  const story = await Story.create({
+    name,
+    content,
+    imageUrl,
+    spaceId: space.id,
+  });
+  return res
+    .status(201)
+    .send({ message: "New cool story is created bro!", story });
 });
 
 // export the router
